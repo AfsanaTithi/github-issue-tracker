@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fafafa;
+}
+
+.tab-btn {
+    border-bottom-width: 2px;
+    border-color: transparent;
+    color: #6b7280;
+}
+
+.tab-btn:hover {
+    color: #111827;
+    border-color: #d1d5db;
+}
+
+.active-tab {
+    border-color: #f97316;
+    color: #111827;
+}
+
+.issue-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.issue-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+
+.card-border-top {
+    border-top-width: 4px;
+}
+
+
+.border-open {
+    border-top-color: #22c55e; 
+}
+
+.border-closed {
+    border-top-color: #9333ea; 
+}
+
+.fallback-icon {
+    display: inline-block;
+    color: #4b5563;
+}
