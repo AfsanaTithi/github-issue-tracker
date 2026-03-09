@@ -238,3 +238,90 @@ function createIssueCard(issue) {
     return div;
 }
 
+async function openModal(issueLight) {
+    showLoader();
+    try {
+        const id = issueLight.id || issueLight._id; 
+        let issue = issueLight;
+
+        if (id) {
+            const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+            if (response.ok) {
+                const fullData = await response.json();
+               if (fullData && fullData.data) {
+                    issue = fullData.data;
+                } else if (fullData && typeof fullData === 'object' && !Array.isArray(fullData)) {
+                    issue = fullData;
+                }
+            }
+        }
+
+        const isClosed = issue.status && issue.status.toLowerCase() === 'closed';
+        const statusIconSrc = isClosed ? 'assets/Closed- Status .png' : 'assets/Open-Status.png';
+        const statusIcon = `<img src="${statusIconSrc}" class="w-4 h-4 object-contain mr-1" alt="status">`;
+
+        modalTitle.textContent = issue.title || 'No Title';
+        modalAuthor.textContent = issue.author || 'Unknown';
+        modalDate.textContent = formatDate(issue.createdAt || issue.date);
+        modalDescription.textContent = issue.description || 'No description provided.';
+        modalPriority.textContent = issue.priority || 'Normal';
+        modalLabel.textContent = issue.labels ? issue.labels.join(', ') : (issue.label || 'None');
+
+        modalStatus.innerHTML = `${statusIcon} <span class="capitalize">${issue.status || 'unknown'}</span>`;
+       modalStatus.className = `px-3 py-1 rounded-full font-semibold border flex items-center gap-1 bg-gray-100 text-gray-700 border-gray-200`;
+
+        issueModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    } catch (e) {
+        console.error("Failed to load full issue details", e);
+        alert("Failed to load full issue details.");
+    } finally {
+        hideLoader();
+    }
+}
+
+function closeModal() {
+    issueModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+
+issueModal.addEventListener('click', (e) => {
+    if (e.target === issueModal) {
+        closeModal();
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !issueModal.classList.contains('hidden')) {
+        closeModal();
+    }
+});
+
+
+function showLoader() {
+    loader.classList.remove('hidden');
+    issuesGrid.classList.add('hidden');
+    emptyState.classList.add('hidden');
+}
+
+function hideLoader() {
+    loader.classList.add('hidden');
+    issuesGrid.classList.remove('hidden');
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'Unknown Date';
+    try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString; 
+
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    } catch (e) {
+        return dateString;
+    }
+}
