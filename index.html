@@ -105,6 +105,33 @@
                     </button>
                 </nav>
             </div>
+
+            <div
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex items-center gap-4">
+                    <div class="bg-[#f0e6ff] p-3 rounded-full flex items-center justify-center shrink-0 w-12 h-12">
+                        <img src="assets/Aperture.png" alt="Aperture" class="w-6 h-6 object-contain"
+                            onerror="this.style.display='none'">
+                        <i class="fa-solid fa-list-ul hidden fallback-icon text-[#7a00ff]"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-baseline gap-2">
+                            <span id="issue-count" class="font-bold text-[22px] text-gray-900 leading-tight">50</span>
+                            <span class="font-bold text-[22px] text-gray-900 leading-tight">Issues</span>
+                        </div>
+                        <p class="text-[#8e95a3] text-[14px]">Track and manage your project issues</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-5 text-[14px] font-bold mt-4 sm:mt-0">
+                    <span class="flex items-center gap-2 text-gray-700">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#00d084]"></div> Open
+                    </span>
+                    <span class="flex items-center gap-2 text-gray-700">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#aa00ff]"></div> Closed
+                    </span>
+                </div>
+            </div>
+
         </main>
     </div>
 
